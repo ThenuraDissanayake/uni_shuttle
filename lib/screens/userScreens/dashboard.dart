@@ -1,4 +1,10 @@
 import 'package:flutter/material.dart';
+import 'seatreservation.dart';
+import 'ShuttleTracking.dart';
+import 'notification.dart';
+import 'feedback.dart';
+import 'myBooking.dart';
+import 'userProfile.dart';
 
 class DashboardScreen extends StatelessWidget {
   const DashboardScreen({super.key});
@@ -8,12 +14,19 @@ class DashboardScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.green,
-        title: const Text('Hi User, Good evening'),
+        title: const Text('Hi User, Welcome to UniShuttle'),
         actions: [
           IconButton(
             icon: const Icon(Icons.account_circle),
             onPressed: () {
-              // Navigate to account or profile screen
+              // Navigate to the User Profile screen
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) =>
+                      const UserProfilePage(), // Navigating to UserProfilePage
+                ),
+              );
             },
           ),
         ],
@@ -42,7 +55,7 @@ class DashboardScreen extends StatelessWidget {
               ],
             ),
           ),
-          
+
           // Buttons for various actions
           Expanded(
             child: GridView.count(
@@ -51,10 +64,51 @@ class DashboardScreen extends StatelessWidget {
               crossAxisSpacing: 20.0,
               mainAxisSpacing: 20.0,
               children: [
-                _buildDashboardButton(context, Icons.event_seat, 'Book a seat'),
-                _buildDashboardButton(context, Icons.history, 'My bookings'),
-                _buildDashboardButton(context, Icons.directions_bus, 'Request shuttle'),
-                _buildDashboardButton(context, Icons.event_available, 'Reserve a shuttle'),
+                _buildDashboardButton(context, Icons.event_seat, 'Book a Seat',
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const SeatReservationPage(),
+                    ),
+                  );
+                }),
+                _buildDashboardButton(context, Icons.map, 'Track Shuttle', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ShuttleTrackingMapPage(),
+                    ),
+                  );
+                }),
+                _buildDashboardButton(
+                    context, Icons.notifications, 'Notifications', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationsPage(),
+                    ),
+                  );
+                }),
+                _buildDashboardButton(context, Icons.history, 'My Bookings',
+                    () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const BookingHistoryPage(),
+                    ),
+                  );
+                }),
+                _buildDashboardButton(context, Icons.feedback, 'Feedback', () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const FeedbackPage(),
+                    ),
+                  );
+                }),
+                _buildDashboardButton(
+                    context, Icons.settings, 'Profile Settings', () {}),
               ],
             ),
           ),
@@ -97,7 +151,7 @@ class DashboardScreen extends StatelessWidget {
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.notifications),
-                label: 'Notification',
+                label: 'Alerts',
               ),
             ],
           ),
@@ -106,7 +160,8 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildDashboardButton(BuildContext context, IconData icon, String label) {
+  Widget _buildDashboardButton(
+      BuildContext context, IconData icon, String label, VoidCallback onTap) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
         backgroundColor: Colors.white, // Button color
@@ -114,9 +169,7 @@ class DashboardScreen extends StatelessWidget {
           borderRadius: BorderRadius.circular(20),
         ),
       ),
-      onPressed: () {
-        // Navigate to the corresponding page
-      },
+      onPressed: onTap,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -131,4 +184,3 @@ class DashboardScreen extends StatelessWidget {
     );
   }
 }
-

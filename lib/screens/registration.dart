@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 // Import the dashboard screens
-import 'dashboard.dart'; // For passenger dashboard
-import 'shuttledashboard.dart'; // For shuttle owner dashboard
+import 'userScreens/dashboard.dart'; // For passenger dashboard
+import 'ShuttleOwnerScreens/shuttledashboard.dart'; // For shuttle owner dashboard
 
 class DynamicRegistrationScreen extends StatefulWidget {
   const DynamicRegistrationScreen({super.key});
 
   @override
-  _DynamicRegistrationScreenState createState() => _DynamicRegistrationScreenState();
+  _DynamicRegistrationScreenState createState() =>
+      _DynamicRegistrationScreenState();
 }
 
 class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
@@ -18,7 +19,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
-  final TextEditingController _confirmPasswordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -58,18 +60,23 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
                   value: _selectedRole,
                   hint: const Text(
                     'Select Role',
-                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 18),
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18),
                   ),
                   icon: const Icon(
                     Icons.arrow_drop_down_circle,
                     color: Color.fromARGB(255, 48, 225, 130),
                   ),
                   dropdownColor: const Color.fromARGB(255, 255, 255, 255),
-                  items: <String>['Passenger', 'Shuttle Owner']
-                      .map((String role) {
+                  items:
+                      <String>['Passenger', 'Shuttle Owner'].map((String role) {
                     return DropdownMenuItem<String>(
                       value: role,
-                      child: Text(role, style: const TextStyle(fontSize: 18, color: Colors.black)),
+                      child: Text(role,
+                          style: const TextStyle(
+                              fontSize: 18, color: Colors.black)),
                     );
                   }).toList(),
                   onChanged: (String? newValue) {
@@ -83,7 +90,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
               // Name field
               TextFormField(
                 controller: _nameController,
-                enabled: _selectedRole != null, // Disable field if role not selected
+                enabled:
+                    _selectedRole != null, // Disable field if role not selected
                 decoration: InputDecoration(
                   labelText: 'Name',
                   border: OutlineInputBorder(
@@ -91,7 +99,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
                   ),
                 ),
                 validator: (value) {
-                  if (_selectedRole != null && (value == null || value.isEmpty)) {
+                  if (_selectedRole != null &&
+                      (value == null || value.isEmpty)) {
                     return 'Please enter your name';
                   }
                   return null;
@@ -102,7 +111,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
               // Email field
               TextFormField(
                 controller: _emailController,
-                enabled: _selectedRole != null, // Disable field if role not selected
+                enabled:
+                    _selectedRole != null, // Disable field if role not selected
                 decoration: InputDecoration(
                   labelText: 'Email',
                   border: OutlineInputBorder(
@@ -113,7 +123,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
                   if (_selectedRole != null) {
                     if (value == null || value.isEmpty) {
                       return 'Please enter your email';
-                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                    } else if (!RegExp(r'^[^@]+@[^@]+\.[^@]+')
+                        .hasMatch(value)) {
                       return 'Please enter a valid email address';
                     }
                   }
@@ -126,7 +137,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
               TextFormField(
                 controller: _passwordController,
                 obscureText: true,
-                enabled: _selectedRole != null, // Disable field if role not selected
+                enabled:
+                    _selectedRole != null, // Disable field if role not selected
                 decoration: InputDecoration(
                   labelText: 'Password',
                   border: OutlineInputBorder(
@@ -134,7 +146,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
                   ),
                 ),
                 validator: (value) {
-                  if (_selectedRole != null && (value == null || value.isEmpty)) {
+                  if (_selectedRole != null &&
+                      (value == null || value.isEmpty)) {
                     return 'Please enter your password';
                   }
                   return null;
@@ -146,7 +159,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
               TextFormField(
                 controller: _confirmPasswordController,
                 obscureText: true,
-                enabled: _selectedRole != null, // Disable field if role not selected
+                enabled:
+                    _selectedRole != null, // Disable field if role not selected
                 decoration: InputDecoration(
                   labelText: 'Confirm Password',
                   border: OutlineInputBorder(
@@ -154,7 +168,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
                   ),
                 ),
                 validator: (value) {
-                  if (_selectedRole != null && value != _passwordController.text) {
+                  if (_selectedRole != null &&
+                      value != _passwordController.text) {
                     return 'Passwords do not match';
                   }
                   return null;
@@ -180,14 +195,16 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => const ShuttleDashboard(), // Change to ShuttleDashboardScreen
+                          builder: (context) =>
+                              OwnerDashboardPage(), // Change to ShuttleDashboardScreen
                         ),
                       );
                     }
                   }
                 },
                 style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
@@ -218,7 +235,8 @@ class _DynamicRegistrationScreenState extends State<DynamicRegistrationScreen> {
                 ),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue, // Google login button color
-                  padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),

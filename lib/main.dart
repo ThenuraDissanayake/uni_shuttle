@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'screens/welcome.dart';
-
+import 'screens/userScreens/dashboard.dart';
+import 'screens/ShuttleOwnerScreens/shuttledashboard.dart';
+import 'screens/admin/admin_dashboard.dart';
 
 void main() {
   runApp(const MyApp());
 }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -15,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const WelcomeScreen(), 
+      home: AdminDashboardPage(),
     );
   }
 }
